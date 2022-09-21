@@ -16,12 +16,12 @@ class IC_CrusadersGameDataSet_Class
 
     GetVersion()
     {
-        return "v2.0.2, 2022-08-22, IC v0.463+"
+        return "v2.0.3, 2022-08-28, IC v0.463+"
     }
 
     Refresh()
     {
-        this.Main := new _ClassMemory("ahk_exe IdleDragons.exe", "", hProcessCopy)
+        this.Main := new _ClassMemory("ahk_exe " . g_userSettings[ "ExeName"], "", hProcessCopy)
         this.BaseAddress := this.Main.getModuleBaseAddress("mono-2.0-bdwgc.dll")+this.moduleOffset ; v463+
         this.CrusadersGame := {}
         this.CrusadersGame.Defs := {}

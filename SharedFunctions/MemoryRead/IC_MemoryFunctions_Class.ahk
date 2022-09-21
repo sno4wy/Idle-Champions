@@ -56,7 +56,7 @@ class IC_MemoryFunctions_Class
     ;Updates installed after the date of this script may result in the pointer addresses no longer being accurate.
     GetVersion()
     {
-        return "v1.10.5, 2022-08-18, IC v0.463+"
+        return "v1.10.6, 2022-08-30, IC v0.463+"
     }
 
     ;Open a process with sufficient access to read and write memory addresses (this is required before you can use the other functions)
@@ -160,17 +160,6 @@ class IC_MemoryFunctions_Class
         else
             timeScaleObject := New GameObjectStructure(this.GameManager.game.gameInstances.TimeScales.Multipliers.GetGameObjectFromListValues(this.GameInstance,0), "Float", [0x10 + 0xC + (index * 0x10)]) ; 10 start, values at 1C,2C,3C..etc
         return Round(this.GenericGetValue(timeScaleObject), 2)
-    }
-
-    ;this read will only return a valid key if it is reading from TimeScaleWhenNotAttackedHandler object
-    ;TODO: Rewrite for new auto offsets system or this can break.
-    ReadTimeScaleMultipliersKeyByIndex(index := 0)
-    {
-        if (this.Is64Bit)
-           key := New GameObjectStructure(this.GameManager.game.gameInstances.timeScales.Multipliers.GetGameObjectFromListValues(this.GameInstance,0),, [0x20 + 0x8 + (index * 0x18), 0x28, 0x10, 0x10, 0x18, 0x10]) ; 20 start -> handler, effectKey, parentEffectKeyHandler, parent, source, ID
-        else
-            key := New GameObjectStructure(this.GameManager.game.gameInstances.timeScales.Multipliers.GetGameObjectFromListValues(this.GameInstance,0),, [0x10 + 0x8 + (index * 0x10), 0x14, 0x8, 0x8, 0xC, 0x8]) ; 10 start, values at 18,28,38..etc to get to handler, effectKey, parentEffectKeyHandler, parent, source, ID
-        return this.GenericGetValue(key)
     }
 
     ReadTimeScaleMultipliersCount()
@@ -739,6 +728,12 @@ class IC_MemoryFunctions_Class
         return formationSaveSlot
     }
 
+    ; Finds the Modron Reset area for the current instance's core.
+    GetModronResetArea()
+    {
+        return this.GetCoreTargetAreaByInstance(this.ReadActiveGameInstance())
+    }
+
     ; Finds the index of the current modron in ModronHandlers
     GetCurrentModronSaveSlot()
     {
@@ -811,7 +806,6 @@ class IC_MemoryFunctions_Class
 
     /* Chests are stored in a dictionary under the "entries". It functions like a 32-Bit list but the ID is every 4th value. Item[0] = ID, item[1] = MAX, Item[2] = ID, Item[3] = count. They are each 4 bytes, not a pointer.
     */
-    ; TODO: Update GetChestCount with BinarySearch
     GetChestCountByID(chestID)
     {
         size := this.ReadInventoryChestListSize()

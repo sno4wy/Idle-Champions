@@ -1,3 +1,61 @@
+September 9, 2022
+    Added IsVersionNewer to IC_VersionHelper_Class.
+    Updated Imports for v469.
+    Updated error message that occurs when failing to read memory when starting BrivGemFarm.
+    Removed outdated/nonfunctional ReadTimeScaleMultipliersKeyByIndex function from SharedFunctions.
+
+September 8, 2022
+    Fixed unescapable loop when pointer settings cannot be saved.
+
+September 6, 2022
+    Updated text in Game Location Settings to be clearer.
+    Fixed boss hit counter counting falling back into a boss when it shouldn't.
+    Fixed chests gained stats to work as intended (Total of purchased + dropped) instead of useless values.
+    Fixed Briv Gem Farm connect button to work in more situations after the Multi-Run update broke them.
+    Added a checkbox to disable Champion handlers being loaded by default in FullMemoryFunctions
+
+September 5, 2022
+    Updated OpenIC to have better handling of failures to open the game.
+    Added minify to JSON functions.
+
+September 4, 2022
+    Updated Version Picker to more accurately determine if imports are matching.
+    Fixed CNE Stand Alone v467 Pointers.
+    Fixed bad initial reads for chests gained. 
+
+September 3, 2022
+    Updated Imports for v467.
+    Added pointers for CNE Stand Alone v467. Note: Mini-Blessings addon requires removing EGS overlay dlls from the game's plugins folder to function. (EOS DLls)
+
+September 1, 2022
+    Added extra icon checks for the Gem Farm Script to handle Windows 7 and Wine better.
+    Added settings to save current inventory window checkbox selections between sessions.
+
+August 30, 2022
+    3rd party Addons need to be updated for use with IC Script Hub. IdleDragons.exe is no longer hard coded and BrivGemFarm's GUID is no longer static.
+
+August 30, 2022
+    Fixed bug that did a hard reset when landing on modron reset with no stacks left.
+    Changed: Should now walk to reset if stacks run out within 5 areas of modron reset area.
+    Removed Stats for Swaps made this run.
+    Added Briv's estimated target stacks to BrivGemFarm stats.
+    Updated platform specific readme docs.
+    Added enhanced Kartridge support for Briv Stacking.
+
+August 29, 2022
+    Added pointer data for Kartridge v465. 
+        Note: It is recommended to remove EOSSDK-Win64-Shipping.dll and GfxPluginEOSLoader_x64.dll from \IdleDragons_Data\Plugins\x86_64 for full pointer compatability.
+
+August 28, 2022
+    Changed how the Game Location Settings works.
+        - The exe must now be included in the path.
+        - A backslash is added to the end automatically when the path ends in "\IdleDragons" (steam) or "\309647" (Kartridge)
+        - If no exe is included in the two cases above, it will automatically be added. This is to keep setup consistent with previous versions.
+        - The exe is now used for the script to know where to read memory. 
+    Updated IC Script Hub to be able to handle renamed a IdleDragons.exe. 
+        - The above changes were in part to help facilitate this change.
+        - This allows for multiple platforms to be run at the same time as long as the exe names are different. (Still requires 2 copies of the script).
+
 August 26, 2022
     Updated offsets to v465.1
     Updated Version Check script with automatic version detection.
